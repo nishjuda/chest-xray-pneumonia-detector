@@ -10,7 +10,7 @@ DIR_PATH = os.path.dirname(__file__)
 MODEL_PATH = os.path.join(DIR_PATH,"models","pneumonia-classifier.keras")
 
 
-model = load_model("MODEL_PATH")
+model = load_model(MODEL_PATH)
 
 @app.get("/")
 def home_page():
