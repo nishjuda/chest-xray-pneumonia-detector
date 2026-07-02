@@ -1,85 +1,103 @@
 # Chest X-Ray Pneumonia Detection System
 
-This project uses a deep learning model to classify chest X-ray images as either **NORMAL** or **PNEUMONIA**. The model was built using transfer learning with MobileNetV2 and deployed using FastAPI and Gradio.
+This project uses a Convolutional Neural Network based on MobileNetV2 to classify chest X-ray images as either **Normal** or **Pneumonia**. The trained model is served through a FastAPI backend and can be run locally or inside a Docker container.
 
 ## Features
 
-* Pneumonia detection from chest X-ray images
-* Transfer learning using MobileNetV2
-* FastAPI backend for model inference
-* Gradio interface for uploading images and viewing predictions
-* Confidence score for predictions
-* Grad-CAM visualization to understand where the model focused
+- Pneumonia detection from chest X-ray images
+- Transfer learning using MobileNetV2
+- FastAPI REST API
+- Interactive Gradio interface
+- Docker support for deployment
 
-## Model Architecture
+## Technologies Used
 
-* Base Model: MobileNetV2 (pretrained on ImageNet)
-* Input Size: 224 × 224 × 3
-* Classification Head:
-
-  * GlobalAveragePooling2D
-  * Dense(128, ReLU)
-  * Dropout(0.3)
-  * Dense(1, Sigmoid)
-
-## Results
-
-* Test Accuracy: ~87%
-* Classes:
-
-  * NORMAL
-  * PNEUMONIA
+- Python
+- TensorFlow / Keras
+- FastAPI
+- Uvicorn
+- Gradio
+- Docker
+- NumPy
+- Pillow
 
 ## Project Structure
 
-chest_xray/
-
-* app.py – FastAPI backend
-* frontend.py – Gradio interface
-* train.py – Model training script
-* grad_cam.py – Grad-CAM generation
-* models/
-
-  * pneumonia-classifier.keras
-* requirements.txt
-* README.md
-* .gitignore
+```
+.
+├── models/
+├── screenshots/
+├── app.py
+├── frontend.py
+├── train.py
+├── Dockerfile
+├── requirements.txt
+└── README.md
+```
 
 ## Installation
 
-Clone the repository:
+Clone the repository.
 
 ```bash
-git clone <repository-url>
-cd chest_xray
+git clone https://github.com/nishjuda/chest-xray-pneumonia-detector.git
+cd chest-xray-pneumonia-detector
 ```
 
-Install the required packages:
+Install the required packages.
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Running the Application
-
-Start the FastAPI server:
+Start the FastAPI server.
 
 ```bash
-uvicorn app:app --reload
+python app.py
 ```
 
-Start the Gradio interface:
+Open the Swagger documentation at:
+
+```
+http://localhost:8000/docs
+```
+
+## Running with Docker
+
+Build the Docker image.
 
 ```bash
-python frontend.py
+docker build -t pneumonia-app .
 ```
 
-The application will open locally in your browser.
+Run the container.
 
-## Note
+```bash
+docker run -d -p 8000:8000 --name pneumonia-container pneumonia-app
+```
 
-Grad-CAM highlights the regions that influenced the model's prediction. It does **not** indicate the exact location of pneumonia and should only be used as an explainability tool.
+The API will be available at:
 
-## Disclaimer
+```
+http://localhost:8000/docs
+```
 
-This project was developed for learning and research purposes and should not be used for clinical diagnosis.
+## API
+
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| GET | `/` | Home page |
+| POST | `/predict` | Predict whether an X-ray is Normal or Pneumonia |
+
+## Future Improvements
+
+- Deploy the application online
+- Replace the Gradio interface with a React frontend
+- Add prediction history using a database
+- Improve model performance with more data
+
+## Author
+
+Nish Juda
+
+GitHub: https://github.com/nishjuda
