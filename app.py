@@ -5,7 +5,12 @@ from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 app = FastAPI()
 from PIL import Image
 import numpy as np
-model = load_model("penumonia-classifier.keras")
+import os
+DIR_PATH = os.path.dirname(__file__)
+MODEL_PATH = os.path.join(DIR_PATH,"models","pneumonia-classifier.keras")
+
+
+model = load_model("MODEL_PATH")
 
 @app.get("/")
 def home_page():
